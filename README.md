@@ -1,4 +1,3 @@
-
 # micrograd
 
 ![awww](puppy.jpg)
@@ -8,7 +7,9 @@ A tiny Autograd engine (with a bite! :)). Implements backpropagation (reverse-mo
 ### Installation
 
 ```bash
-pip install micrograd
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
 ### Example usage
