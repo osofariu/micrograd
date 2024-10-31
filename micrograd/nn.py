@@ -27,6 +27,12 @@ class Neuron(Module):
     def __repr__(self):
         return f"{'ReLU' if self.nonlin else 'Linear'}Neuron({len(self.w)})"
 
+    def __str__(self):
+        fstr = f"{'ReLU' if self.nonlin else 'Linear'}Neuron({len(self.w)}) -> "
+        for idx, wi in enumerate(self.w):
+            fstr += f"w{idx} ={wi.data:7.4f}, "
+        fstr += f"b ={self.b.data:7.4f}"
+        return fstr
 class Layer(Module):
 
     def __init__(self, nin, nout, **kwargs):
@@ -40,10 +46,16 @@ class Layer(Module):
         return [p for n in self.neurons for p in n.parameters()]
 
     def __repr__(self):
-        return f"Layer of [{', '.join(str(n) for n in self.neurons)}]"
+        return f"Layer of [{', '.join(str(n.__repr__()) for n in self.neurons)}]"
 
+    def __str__(self):
+        fstr = f"Shape of the layer is: {len(self.neurons[0].w)} X {len(self.neurons)} (nin X nout)\n"
+        for idx, neuron in enumerate(self.neurons):
+            fstr += f"   Neuron {idx+1}: {neuron.__str__()} \n"
+        return fstr
+
+# Neurons are non-linear in every layer except the last one.
 class MLP(Module):
-
     def __init__(self, nin, nouts):
         sz = [nin] + nouts
         self.layers = [Layer(sz[i], sz[i+1], nonlin=i!=len(nouts)-1) for i in range(len(nouts))]
@@ -57,4 +69,10 @@ class MLP(Module):
         return [p for layer in self.layers for p in layer.parameters()]
 
     def __repr__(self):
-        return f"MLP of [{', '.join(str(layer) for layer in self.layers)}]"
+         return f"MLP of [{', '.join(str(layer.__repr__()) for layer in self.layers)}]"
+
+    def __str__(self):
+        fstr = "Multi-Layer Perceptron Structure:\n"
+        for idx, layer in enumerate(self.layers):
+            fstr += f" Layer {idx+1}/{len(self.layers)} - {layer}\n"
+        return fstr
