@@ -1,3 +1,7 @@
+# ChatGPT introduction to Neural Networks
+
+**Question:** Can you explain neural networks?
+
 Certainly! Neural networks are a fundamental part of many modern machine learning systems, especially those related to deep learning. They are inspired by the structure and function of the human brain, specifically its network of neurons, and are designed to recognize patterns in data.
 
 Here's a high-level overview to break down the concept:
