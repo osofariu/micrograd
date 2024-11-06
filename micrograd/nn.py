@@ -19,6 +19,7 @@ class Neuron(Module):
 
     def __call__(self, x):
         act = sum((wi*xi for wi,xi in zip(self.w, x)), self.b)
+        print("self: ", self, "act: ", act)
         return act.relu() if self.nonlin else act
 
     def parameters(self):
@@ -50,8 +51,8 @@ class Layer(Module):
 
     def __str__(self):
         fstr = f"Shape of the layer is: {len(self.neurons[0].w)} X {len(self.neurons)} (nin X nout)\n"
-        for idx, neuron in enumerate(self.neurons):
-            fstr += f"   Neuron {idx+1}: {neuron.__str__()} \n"
+        last_neuron_idx = len(self.neurons)-1
+        fstr+=f"\t[Neuron {0}: {self.neurons[0]} ... Neuron {last_neuron_idx}: {self.neurons[last_neuron_idx]}]"
         return fstr
 
 # Neurons are non-linear in every layer except the last one.

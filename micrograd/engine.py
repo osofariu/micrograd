@@ -43,6 +43,9 @@ class Value:
         return out
 
     def relu(self):
+        #print("type of data ", type(self.data))
+        #print("RELU to: ", self)
+        assert isinstance(self.data, (int, float)), "only supporting int/float powers for now"
         out = Value(0 if self.data < 0 else self.data, (self,), 'ReLU')
 
         def _backward():
@@ -50,6 +53,10 @@ class Value:
         out._backward = _backward
 
         return out
+    
+    def softmax(x):
+        e_x = np.exp(x - np.max(x))
+        return e_x / e_x.sum(axis=0)
 
     def backward(self):
 
@@ -85,6 +92,7 @@ class Value:
         return self * other
 
     def __truediv__(self, other): # self / other
+        print("truediv ", self, other)
         return self * other**-1
 
     def __rtruediv__(self, other): # other / self
