@@ -12,6 +12,9 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Vscode tip: using command pallete, choose `Python: select interpreter` if the code runs fine (having selected the correct virtual environment), but the
+IDE keeps complaining about missing imports.  It seems that Vscode determines the virtual environment through the python interpreter.
+
 ### Example usage
 
 Below is a slightly contrived example showing a number of possible supported operations:

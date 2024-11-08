@@ -19,7 +19,6 @@ class Neuron(Module):
 
     def __call__(self, x):
         act = sum((wi*xi for wi,xi in zip(self.w, x)), self.b)
-        #print("self: ", self, "act: ", act)
         return act.relu() if self.nonlin else act
 
     def parameters(self):
